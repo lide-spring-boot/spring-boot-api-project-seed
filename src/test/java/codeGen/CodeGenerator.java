@@ -1,3 +1,5 @@
+package codeGen;
+
 import com.google.common.base.CaseFormat;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.commons.lang3.StringUtils;

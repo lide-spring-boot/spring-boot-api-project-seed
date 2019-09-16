@@ -1,7 +1,7 @@
 package ${basePackage}.web;
 
-import ${basePackage}.core.Result;
-import ${basePackage}.core.ResultGenerator;
+import ${basePackage}.core.response.Result;
+import ${basePackage}.core.response.ResultGenerator;
 import ${basePackage}.model.${modelNameUpperCamel};
 import ${basePackage}.service.${modelNameUpperCamel}Service;
 import com.github.pagehelper.PageHelper;
@@ -27,7 +27,7 @@ public class ${modelNameUpperCamel}Controller {
     }
 
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Integer id) {
+    public Result delete(@PathVariable Long id) {
         ${modelNameLowerCamel}Service.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
@@ -39,7 +39,7 @@ public class ${modelNameUpperCamel}Controller {
     }
 
     @GetMapping("/{id}")
-    public Result detail(@PathVariable Integer id) {
+    public Result detail(@PathVariable Long id) {
         ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }

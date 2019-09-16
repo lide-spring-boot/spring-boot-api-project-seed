@@ -1,4 +1,4 @@
-package com.company.project.configurer;
+package com.company.project.core.configurer;
 
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.plugin.Interceptor;
