@@ -1,4 +1,4 @@
-package com.company.project.core;
+package com.company.project.core.response;
 
 /**
  * 响应结果生成工具
@@ -22,6 +22,11 @@ public class ResultGenerator {
     public static Result genFailResult(String message) {
         return new Result()
                 .setCode(ResultCode.FAIL)
+                .setMessage(message);
+    }
+    public static Result genFailResult(String message,ResultCode code) {
+        return new Result()
+                .setCode(code)
                 .setMessage(message);
     }
 }

@@ -1,3 +1,5 @@
+package codeGen;
+
 import com.google.common.base.CaseFormat;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -11,17 +13,17 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.company.project.core.ProjectConstant.*;
+import static com.company.project.core.constant.ProjectConstant.*;
 
 /**
  * 代码生成器，根据数据表名称生成对应的Model、Mapper、Service、Controller简化开发。
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&allowMultiQueries=true&characterEncoding=utf-8&serverTimezone=UTC";
     private static final String JDBC_USERNAME = "root";
-    private static final String JDBC_PASSWORD = "123456";
-    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+    private static final String JDBC_PASSWORD = "lds3421597";
+    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
     private static final String PROJECT_PATH = System.getProperty("user.dir");//项目在硬盘上的基础路径
     private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/src/test/resources/generator/template";//模板位置
@@ -35,10 +37,10 @@ public class CodeGenerator {
 
     private static final String AUTHOR = "CodeGenerator";//@author
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
-
+    private static boolean isRestful = true;
     public static void main(String[] args) {
-        genCode("输入表名");
-        //genCodeByCustomModelName("输入表名","输入自定义Model名称");
+//        genCode("test");
+        genCodeByCustomModelName("sys_user","SysUser");
     }
 
     /**
@@ -180,8 +182,11 @@ public class CodeGenerator {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            //cfg.getTemplate("controller-restful.ftl").process(data, new FileWriter(file));
-            cfg.getTemplate("controller.ftl").process(data, new FileWriter(file));
+            if (isRestful){
+                cfg.getTemplate("controller-restful.ftl").process(data, new FileWriter(file));
+            }else{
+                cfg.getTemplate("controller.ftl").process(data, new FileWriter(file));
+            }
 
             System.out.println(modelNameUpperCamel + "Controller.java 生成成功");
         } catch (Exception e) {
